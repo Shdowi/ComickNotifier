@@ -112,7 +112,7 @@ export default function SignInPage() {
         </form>
         
         <div className="mt-6 text-center text-sm">
-          <span className="text-muted-foreground">Don't have an account? </span>
+          <span className="text-muted-foreground">Don&apos;t have an account? </span>
           <Link 
             href="/signup" 
             className="text-primary hover:text-primary/80 font-medium"

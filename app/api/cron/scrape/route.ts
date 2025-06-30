@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { ComickScraper } from '@/lib/scraper/comick'
 import { db, series, chapters, subscriptions, notifications } from '@/lib/db'
-import { EmailNotificationService } from '@/lib/notifications/email'
+import { DiscordNotificationService } from '@/lib/notifications/discord'
 import { eq, and, not } from 'drizzle-orm'
 
 export async function GET(req: NextRequest) {
@@ -92,8 +92,8 @@ export async function GET(req: NextRequest) {
         // Send notifications to subscribers
         for (const subscription of subscribers) {
           try {
-            if (subscription.user.emailNotifications) {
-              const success = await EmailNotificationService.sendChapterNotification({
+            if (subscription.user.discordNotifications && subscription.user.discordWebhook) {
+              const success = await DiscordNotificationService.sendChapterNotification({
                 user: subscription.user,
                 chapter: newChapter[0],
                 series: existingSeries,
@@ -103,10 +103,10 @@ export async function GET(req: NextRequest) {
               await db.insert(notifications).values({
                 userId: subscription.user.id,
                 chapterId: newChapter[0].id,
-                type: 'email',
+                type: 'discord',
                 status: success ? 'sent' : 'failed',
                 sentAt: success ? new Date() : null,
-                errorMessage: success ? null : 'Email delivery failed',
+                errorMessage: success ? null : 'Discord webhook delivery failed',
                 createdAt: new Date(),
               })
 

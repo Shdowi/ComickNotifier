@@ -3,7 +3,7 @@ import { hash } from 'bcryptjs'
 import { db, users } from '@/lib/db'
 import { validateEmail } from '@/lib/utils'
 import { eq } from 'drizzle-orm'
-import { EmailNotificationService } from '@/lib/notifications/email'
+import { DiscordNotificationService } from '@/lib/notifications/discord'
 
 export async function POST(req: NextRequest) {
   try {
@@ -56,20 +56,14 @@ export async function POST(req: NextRequest) {
         name: name || null,
         email,
         hashedPassword,
-        emailNotifications: true,
-        webPushEnabled: false,
+        discordNotifications: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       })
       .returning()
 
-    // Send welcome email
-    try {
-      await EmailNotificationService.sendWelcomeEmail(newUser[0])
-    } catch (emailError) {
-      console.error('Failed to send welcome email:', emailError)
-      // Don't fail the signup if email fails
-    }
+    // Note: Discord welcome message will be sent when user sets up their webhook
+    // in the dashboard, since we don't have webhook URL during signup
 
     return NextResponse.json(
       { 

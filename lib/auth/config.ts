@@ -1,18 +1,15 @@
 import { NextAuthOptions } from 'next-auth'
-import { DrizzleAdapter } from '@auth/drizzle-adapter'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { compare } from 'bcryptjs'
 import { db, users } from '@/lib/db'
 import { eq } from 'drizzle-orm'
 
 export const authOptions: NextAuthOptions = {
-  adapter: DrizzleAdapter(db) as any,
   session: {
     strategy: 'jwt',
   },
   pages: {
     signIn: '/auth/signin',
-    signUp: '/auth/signup',
   },
   providers: [
     CredentialsProvider({

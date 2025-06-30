@@ -13,10 +13,8 @@ export const users = pgTable('users', {
   createdAt: timestamp('createdAt', { mode: 'date' }).defaultNow().notNull(),
   updatedAt: timestamp('updatedAt', { mode: 'date' }).defaultNow().notNull(),
   // Notification preferences
-  emailNotifications: boolean('emailNotifications').default(true).notNull(),
-  webPushEnabled: boolean('webPushEnabled').default(false).notNull(),
   discordWebhook: text('discordWebhook'),
-  telegramChatId: text('telegramChatId'),
+  discordNotifications: boolean('discordNotifications').default(true).notNull(),
 })
 
 export const accounts = pgTable(
@@ -89,7 +87,7 @@ export const subscriptions = pgTable('subscriptions', {
     .notNull()
     .references(() => series.id, { onDelete: 'cascade' }),
   isActive: boolean('isActive').default(true).notNull(),
-  notificationTypes: jsonb('notificationTypes').$type<string[]>().default(['email']), // email, webhook, push
+  notificationTypes: jsonb('notificationTypes').$type<string[]>().default(['discord']), // discord webhook
   createdAt: timestamp('createdAt', { mode: 'date' }).defaultNow().notNull(),
   updatedAt: timestamp('updatedAt', { mode: 'date' }).defaultNow().notNull(),
 })
@@ -117,7 +115,7 @@ export const notifications = pgTable('notifications', {
   chapterId: integer('chapterId')
     .notNull()
     .references(() => chapters.id, { onDelete: 'cascade' }),
-  type: varchar('type', { length: 20 }).notNull(), // email, webhook, push
+  type: varchar('type', { length: 20 }).notNull(), // discord
   status: varchar('status', { length: 20 }).default('pending').notNull(), // pending, sent, failed
   sentAt: timestamp('sentAt', { mode: 'date' }),
   errorMessage: text('errorMessage'),

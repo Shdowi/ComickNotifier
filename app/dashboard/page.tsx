@@ -51,7 +51,7 @@ export default async function DashboardPage() {
           <CardContent>
             <div className="text-2xl font-bold">0</div>
             <p className="text-xs text-muted-foreground">
-              Series you're following
+              Series you&apos;re following
             </p>
           </CardContent>
         </Card>
@@ -151,7 +151,7 @@ export default async function DashboardPage() {
         <CardHeader>
           <CardTitle>Your Subscriptions</CardTitle>
           <CardDescription>
-            Manga series you're currently following
+            Manga series you&apos;re currently following
           </CardDescription>
         </CardHeader>
         <CardContent>

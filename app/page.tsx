@@ -6,7 +6,6 @@ import { Badge } from '@/components/ui/badge'
 import { 
   Bell, 
   BookOpen, 
-  Mail, 
   MessageSquare, 
   Smartphone,
   Zap,
@@ -40,8 +39,8 @@ export default async function HomePage() {
             <span className="text-primary"> Favorite Manga</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Get instant notifications when new chapters are released for your subscribed series. 
-            Multiple notification methods, smart filtering, and zero spam.
+            Get instant Discord notifications when new chapters are released for your subscribed series. 
+            Smart filtering, webhook testing, and zero spam.
           </p>
         </div>
         
@@ -101,11 +100,11 @@ export default async function HomePage() {
           <Card className="hover:shadow-lg transition-shadow">
             <CardHeader>
               <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                <Mail className="w-6 h-6 text-primary" />
+                <MessageSquare className="w-6 h-6 text-primary" />
               </div>
-              <CardTitle>Email Notifications</CardTitle>
+              <CardTitle>Discord Notifications</CardTitle>
               <CardDescription>
-                Beautiful email notifications with chapter details and direct links to read
+                Rich Discord webhook notifications with embedded chapter details and direct links
               </CardDescription>
             </CardHeader>
           </Card>
@@ -113,11 +112,11 @@ export default async function HomePage() {
           <Card className="hover:shadow-lg transition-shadow">
             <CardHeader>
               <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                <MessageSquare className="w-6 h-6 text-primary" />
+                <Zap className="w-6 h-6 text-primary" />
               </div>
-              <CardTitle>Discord Integration</CardTitle>
+              <CardTitle>Webhook Testing</CardTitle>
               <CardDescription>
-                Connect your Discord server with webhooks for community notifications
+                Test your Discord webhooks to ensure notifications are working perfectly
               </CardDescription>
             </CardHeader>
           </Card>
@@ -216,7 +215,7 @@ export default async function HomePage() {
             <div className="text-muted-foreground">Monitoring</div>
           </div>
           <div className="space-y-2">
-            <div className="text-3xl md:text-4xl font-bold text-primary">< 1min</div>
+            <div className="text-3xl md:text-4xl font-bold text-primary">&lt; 1min</div>
             <div className="text-muted-foreground">Notification Delay</div>
           </div>
         </div>

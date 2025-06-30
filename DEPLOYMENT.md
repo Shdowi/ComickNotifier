@@ -5,8 +5,8 @@ This guide will help you deploy the Comick Notifier web application to Vercel.
 ## 📋 Prerequisites
 
 - Vercel account
-- PostgreSQL database (Vercel Postgres recommended)
-- Resend account for email notifications
+- Supabase account for PostgreSQL database
+- Discord webhook URL for notifications
 - Google Drive file with manga series list (optional)
 
 ## 🔧 Environment Variables
@@ -15,18 +15,15 @@ Set up these environment variables in your Vercel dashboard:
 
 ### Required Variables
 ```env
-# Database
-POSTGRES_URL="postgresql://username:password@host:port/database"
-POSTGRES_PRISMA_URL="postgresql://username:password@host:port/database?pgbouncer=true&connect_timeout=15"
-POSTGRES_URL_NON_POOLING="postgresql://username:password@host:port/database"
+# Database (Supabase)
+DATABASE_URL="postgresql://username:password@host:port/database"
 
 # NextAuth
 NEXTAUTH_URL="https://your-domain.vercel.app"
 NEXTAUTH_SECRET="your-random-secret-key-here"
 
-# Email Service
-RESEND_API_KEY="re_your_resend_api_key"
-FROM_EMAIL="notifications@yourdomain.com"
+# Cron Job Security
+CRON_SECRET="your-cron-secret-key"
 ```
 
 ### Optional Variables
@@ -43,35 +40,34 @@ NODE_ENV="production"
 
 ## 🗄️ Database Setup
 
-### 1. Create Vercel Postgres Database
-```bash
-# Install Vercel CLI
-npm install -g vercel
-
-# Login to Vercel
-vercel login
-
-# Create database
-vercel postgres create
-```
+### 1. Create Supabase Project
+1. Go to [supabase.com](https://supabase.com) and create an account
+2. Create a new project
+3. Wait for the database to be provisioned
+4. Go to Settings → Database → Connection string
+5. Copy the connection string and set as `DATABASE_URL`
 
 ### 2. Initialize Database Schema
 ```bash
+# Install dependencies
+npm install
+
 # Push schema to database
-npm run db:push
+npx drizzle-kit push:pg
 ```
 
-## 📧 Email Configuration
+## 🔔 Discord Notification Setup
 
-### 1. Set up Resend
-1. Create account at [resend.com](https://resend.com)
-2. Add and verify your domain
-3. Get your API key
-4. Set `RESEND_API_KEY` environment variable
+### 1. Create Discord Webhook
+1. Go to your Discord server
+2. Server Settings → Integrations → Webhooks
+3. Create New Webhook
+4. Choose the channel for notifications
+5. Copy the webhook URL
+6. Users will add this webhook URL in their dashboard settings
 
-### 2. Configure Sender Email
-- Use a verified domain email as `FROM_EMAIL`
-- Format: `notifications@yourdomain.com`
+### 2. Test Webhook (Optional)
+You can test webhooks using the built-in test feature in the application dashboard.
 
 ## 📂 Series List Setup (Optional)
 
