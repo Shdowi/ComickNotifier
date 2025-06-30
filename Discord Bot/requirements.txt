@@ -1,0 +1,4 @@
+discord
+cloudscraper
+bs4
+dotenv
